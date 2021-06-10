@@ -23,7 +23,7 @@ body{
 
 /*UI of alarm settings*/
 #alarm-container{
-    margin: 2% 24%;
+    margin: 2% 20%;
     width: auto;
 }
 
@@ -73,6 +73,7 @@ overflow-x: none;
 margin: 4% 9%;
 }
 
+
 /*UI of all alarm list*/
 #all-alarm-list .alarm-list-info{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -81,6 +82,16 @@ margin: 4% 9%;
     width: 45rem;
     border-bottom: 1px solid #161616;
 }
+
+#all-alarm-list .del_btn{
+    color: red;
+    cursor: pointer;
+    width: 4rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border-bottom: 1px solid #161616;
+}
+
 
 /* customizing scrollbar */
 
@@ -124,6 +135,9 @@ margin: 4% 9%;
         height: 14rem;
     }
     #all-alarm-list .alarm-list-info{
+        font-size: 1rem;
+    }
+    #all-alarm-list  .del_btn{
         font-size: 1rem;
     }
 }
