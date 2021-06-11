@@ -81,7 +81,7 @@ setAlarm.addEventListener('click',function(){
     }
 
     //alarm time 
-    let Time = Zero(Hour) + ":" + Zero(Minute) + ":" + Zero(Seconds)  + " " + Meridian;
+    let Time = Zero(Hour) + ":" + Zero(Minute) + ":" + Zero(Seconds)+" "+Meridian;
 
     let alarmEvent = {
         label : Lablel,
@@ -91,13 +91,13 @@ setAlarm.addEventListener('click',function(){
     let nextAlarm = localStorage.getItem('nextAlarm');
 
     if(nextAlarm == null){
-        list = [];
+        alarmlist = [];
     }else{
-        list = JSON.parse(nextAlarm);
+        alarmlist = JSON.parse(nextAlarm);
     }
 
-    list.push(alarmEvent);
-    localStorage.setItem('nextAlarm', JSON.stringify(list));
+    alarmlist.push(alarmEvent);
+    localStorage.setItem('nextAlarm', JSON.stringify(alarmlist));
 
     showAlarms();
     triggerAlarm();
@@ -106,11 +106,11 @@ setAlarm.addEventListener('click',function(){
 // deleting alarm 
 function deleteAlarm(index){
     let nextAlarm = localStorage.getItem('nextAlarm');
-    let list = JSON.parse(nextAlarm);
+    let alarmlist = JSON.parse(nextAlarm);
 
-    list.splice(index,1);
+    alarmlist.splice(index,1);
 
-    localStorage.setItem('nextAlarm',JSON.stringify(list));
+    localStorage.setItem('nextAlarm',JSON.stringify(alarmlist));
 
     showAlarms();
     triggerAlarm();
@@ -121,16 +121,16 @@ function showAlarms(){
     let nextAlarm =localStorage.getItem('nextAlarm');
 
     if(nextAlarm == null){
-        list = [];
+        alarmlist = [];
     }else{
-        list =JSON.parse(nextAlarm);
+        alarmlist =JSON.parse(nextAlarm);
     }
     let html = '';
     let nextAlarmsList = document.getElementById('all-alarm-list');
 
     nextAlarmsList.innerHTML = html;
 
-    list.forEach((alarmEvent,index) =>{
+    alarmlist.forEach((alarmEvent,index) =>{
         html += `<tr>
                     <td class="alarm-list-info">
                         <p style="margin: 5px;">${alarmEvent.label}</p>
@@ -149,13 +149,13 @@ function triggerAlarm(){
     let nextAlarm =localStorage.getItem('nextAlarm');
 
     if(nextAlarm == null){
-        list = [];
+        alarmlist = [];
     }else{
-        list =JSON.parse(nextAlarm);
+       alarmlist =JSON.parse(nextAlarm);
     }
 
-    if(list.length != 0){
-        let newAlarm = list[0];
+    if(alarmlist.length != 0){
+        let newAlarm = alarmlist[0];
       
     
 
@@ -174,12 +174,19 @@ function triggerAlarm(){
                 hours = hours - 12;
             }
         
-            let running_Time = runningTime.textContent = Zero(hours) + ":" + Zero(minutes) + ":" + Zero(seconds) + "  " + meridian;
+            let running_Time = runningTime.textContent = Zero(hours) + ":" + Zero(minutes) + ":" + Zero(seconds) + " " + meridian;
+             
+
+            
 
             if(newAlarm.time == running_Time){
-                window.alert(newAlarm.label);
+                //for beep sound in cancelling the alarm
+                let mp3_url = new Audio('https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3');
+     
+                    window.alert(newAlarm.label);
+                    mp3_url.play();
                 list.splice(0,1);
-                localStorage.setItem('nextAlarm',JSON.stringify(list));
+                localStorage.setItem('nextAlarm',JSON.stringify(alarmlist));
                 showAlarms();
                 triggerAlarm();
             }
